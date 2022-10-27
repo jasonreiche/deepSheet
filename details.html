@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?= title ?></title>
+    <?!= include('Head'); ?>
+    <style>
+      :root {
+        --mdc-theme-primary: <?= primaryColor || '#236192' ?>;
+        --mdc-theme-secondary: <?= secondaryColor || '#009CDE' ?>;
+      }
+    </style>
+  </head>
+  <body>
+    <dl>
+      <? for (var col = 0; col < labels.length; col++) { ?>
+        <? if (displays[col] == "hide") continue; ?>
+
+        <dt><?= labels[col] ?></dt>
+        <dd>
+          <? // Handle Image Type ?>
+          <? if (types[col] == 'image') { ?>
+            <img src="<?= data[col] ?>" id="field<?= col ?>" style="max-height:100px;"/>
+          
+          <? // Handle Boolean Type ?>
+          <? } else if (types[col] == 'boolean') { ?>
+            <? if (data[col]) { ?>
+              <i id="field<?= col ?>" class="fas fa-check fa-lg" alt="True"></i>
+            <? } else { ?>
+              <i id="field<?= col ?>" class="fas fa-times fa-lg" alt="False"></i>
+            <? } ?>
+
+          <? // Handle Chips Type ?>
+          <? } else if (types[col] == 'chips') { ?>
+            <div class="mdc-chip-set">
+              <? let items = data[col].split(";") ?>
+              <? for (var i = 0; i < items.length; i++) { ?>
+                <div class="mdc-chip" tabindex="0">
+                  <div class="mdc-chip__text"><?= items[i] ?></div>
+                </div>
+              <? } ?>
+            </div>
+    
+          <? // Handle URL Type ?>
+          <? } else if (types[col] == 'url') { ?>
+              <a href="<?= data[col] ?>" id="field<?= col ?>"><?= data[col] ?></a>
+
+          <? // Handle Date Type ?>
+          <? } else if (types[col] == 'date' && data[col] != '') { ?>
+            <?= (new Date(data[col])).toDateString() ?>
+
+          <? // Handle String Type (Default) ?>
+          <? } else { ?>
+            <?= data[col] || '-' ?>
+          <? } ?>
+        </dd>
+      <? } ?>
+    </dl>
+    <?!= include('Foot'); ?>
+  </body>
+</html>

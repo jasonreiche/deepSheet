@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?= title ?></title>
+    <?!= include('Head'); ?>
+    <style>
+      :root {
+        --mdc-theme-primary: <?= primaryColor || '#236192' ?>;
+        --mdc-theme-secondary: <?= secondaryColor || '#009CDE' ?>;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="mdl-data-table mdc-data-table__table" style="display:none">
+      <thead><tr>
+        <th><?= labels.quote ?></th>
+        <th>Source</th>
+      </tr></thead>
+      <tbody>
+        <? for (var i = 0; i < data.length; i++) { ?>
+          <tr>
+            <td><?= data[i].quote ?></td>
+            <td><?= data[i].person || data[i].other ?></td>
+          </tr>
+        <? } ?>
+      </tbody>
+    </table>
+    <?!= include('Foot'); ?>
+  </body>
+</html>

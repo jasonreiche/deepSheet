@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?= title ?></title>
+    <?!= include('Head'); ?>
+    <style>
+      :root {
+        --mdc-theme-primary: <?= primaryColor || '#236192' ?>;
+        --mdc-theme-secondary: <?= secondaryColor || '#009CDE' ?>;
+      }
+    </style>
+  </head>
+  <body>
+    <?
+      var details = Object.entries(routes).filter(([key, value]) => value.sheet == route.sheet && value.type == "details");
+      details = (details && details.length > 0) ? 
+        Object.assign(details[0][1], { page: details[0][0] })
+        : null;
+    ?>
+    <table class="mdl-data-table mdc-data-table__table" style="display:none">
+      <thead><tr>
+        <? for (var h = 0; h < labels.length; h++) { ?>
+          <? if (displays[h] == "details" || displays[h] == "hide") continue; ?>
+          <th><?= labels[h] ?></th>
+        <? } ?>
+      </tr></thead>
+      <tbody>
+        <? for (var row = 0; row < data.length; row++) { ?>
+          <tr>
+            <? for (var col = 0; col < data[row].length; col++) { ?>
+              <? if (displays[col] == "details" || displays[col] == "hide") continue; ?>
+
+              <td
+                <? if (col == 0) { ?>
+                  data-order="<?= data[row][col] ?>"
+                <? } else if (types[col] == 'boolean') { ?>
+                  class="center"
+                <? } ?>
+              >
+
+                <? //// Handle Types ?>
+                <? if (col == 0 && details) { ?>
+                  <a class="details" href="<?= exec ?>?s=<?= sheetName ?>&p=<?= details.page ?>&i=<?= data[row][col] ?>">
+                <? } ?>  
+                <? // Handle Date Type ?>
+                <? if (types[col] == 'date') { ?>
+                  <? if (data[row][col] != '') { ?>
+                    <?= (new Date(data[row][col])).toDateString() ?>
+                  <? } ?>
+
+                <? // Handle URL Type ?>
+                <? } else if (types[col] == 'url') { ?>
+                  <a href="<?= data[row][col] ?>"><?= data[row][col] ?></a>
+
+                <? // Handle Image Type ?>
+                <? } else if (types[col] == 'image') { ?>
+                  <img src="<?= data[row][col] ?>" style="max-height:100px;"/>
+                
+                <? // Handle Boolean Type ?>
+                <? } else if (types[col] == 'boolean') { ?>
+                  <? if (data[row][col]) { ?>
+                    <i class="fas fa-check fa-lg" alt="True"></i>
+                  <? } else { ?>
+                    <i class="fas fa-times fa-lg" alt="False"></i>
+                  <? } ?>
+                <? // Handle String Type (Default) ?>
+                <? } else { ?>
+                  <?= data[row][col] ?>
+                <? } ?>
+
+                <? if (col == 0 && details) { ?>
+                  </a>
+                <? } ?>  
+
+              </td>
+            <? } ?>
+          </tr>
+        <? } ?>
+      </tbody>
+    </table>
+    <script>
+      var routes = JSON.parse(<?= JSON.stringify(routes) ?>);
+      var details = JSON.parse(<?= JSON.stringify(details) ?>);
+    </script>
+    <?!= include('Foot'); ?>
+  </body>
+</html>

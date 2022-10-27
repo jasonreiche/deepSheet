@@ -1,0 +1,232 @@
+<base target="_top">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.material.min.css"> -->
+<link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.4/css/rowGroup.dataTables.min.css" defer></script>
+<link rel="stylesheet" href="https://rsc-media.github.io/fonts/font-awesome/5.15.2-pro/css/all.min.css" defer></script>
+
+<style>
+  .mdc-chip:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+
+
+  .flex
+  .flex-col {
+    display: flex
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .wrap {
+    white-space: normal;
+  }
+
+  .mdc-chip {
+    white-space: nowrap;
+  }
+
+  dt {
+    color: #333 ;
+    font-size: .95em;
+    font-weight: 600;
+  }
+  dd {
+    font-size: 1.5em;
+    margin-left: 0;
+    margin-bottom: .5em
+  }
+  
+  /* https://cdn.datatables.net/1.11.5/css/dataTables.material.min.css */
+  table.dataTable th.dt-left,table.dataTable td.dt-left {
+    text-align: left
+  }
+
+  .center,
+  .dt-center
+  .dataTables_empty,
+  .dt-head-center,
+  .dt-body-center {
+    text-align: center
+  }
+
+  .dt-right,
+  .dt-head-right,
+  .dt-body-right {
+    text-align: right
+  }
+
+  .dt-justify,
+  .dt-head-justify,
+  .dt-body-justify {
+    text-align: justify
+  }
+
+  .dt-nowrap,
+  .dt-head-nowrap,
+  .dt-body-nowrap {
+    white-space: nowrap
+  }
+
+  .dt-head-left,
+  .dt-body-left {
+    text-align: left
+  }
+
+  table.dataTable td.dt-control {
+    text-align: center;
+    cursor: pointer
+  }
+
+  table.dataTable td.dt-control:before {
+    height: 1em;
+    width: 1em;
+    margin-top: -9px;
+    display: inline-block;
+    color: white;
+    border: .15em solid white;
+    border-radius: 1em;
+    box-shadow: 0 0 .2em #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: "Courier New",Courier,monospace;
+    line-height: 1em;
+    content: "+";
+    background-color: #31b131
+  }
+
+  table.dataTable tr.dt-hasChild td.dt-control:before {
+    content: "-";
+    background-color: #d33333
+  }
+
+  div.dataTables_wrapper div.dataTables_filter {
+    text-align: right
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5em
+  }
+
+  div.dataTables_wrapper div.dataTables_info {
+    padding-top: 10px;
+    white-space: nowrap
+  }
+
+  div.dataTables_wrapper div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: right
+  }
+
+  div.dataTables_wrapper div.mdc-grid.dt-table {
+    padding-top: 0;
+    padding-bottom: 0
+  }
+
+  div.dataTables_wrapper div.mdc-grid.dt-table>div.mdc-cell {
+    margin-top: 0;
+    margin-bottom: 0
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc {
+    padding-right: 30px
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th:active {
+    outline: none
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting {
+    cursor: pointer;
+    position: relative
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc:after,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc:after,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting:after {
+    position: absolute;
+    display: block;
+    opacity: .3;
+    right: 1em;
+    line-height: 9px;
+    font-size: .9em
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting:before {
+    bottom: 50%;
+    content: "▴"
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc:after,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc:after,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting:after {
+    top: 50%;
+    content: "▾"
+  }
+
+  div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_asc:before,div.dataTables_wrapper table.mdc-data-table__table thead tr th.sorting_desc:after {
+    opacity: .8
+  }
+
+  div.dataTables_wrapper .mdc-data-table__cell {
+    border: 1px solid rgba(0, 0, 0, 0.12)
+  }
+
+  div.dataTables_wrapper div.mdc-layout-grid {
+    margin: 0px;
+    padding: 5px
+  }
+
+  table.dataTable thead>tr>th.sorting_asc,table.dataTable thead>tr>th.sorting_desc,table.dataTable thead>tr>th.sorting,table.dataTable thead>tr>td.sorting_asc,table.dataTable thead>tr>td.sorting_desc,table.dataTable thead>tr>td.sorting {
+    padding-right: 30px
+  }
+
+  table.dataTable thead>tr>th:active,table.dataTable thead>tr>td:active {
+    outline: none
+  }
+
+  table.dataTable thead .sorting,table.dataTable thead .sorting_asc,table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc_disabled,table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    position: relative
+  }
+
+  table.dataTable thead .sorting:before,table.dataTable thead .sorting:after,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_desc:before,table.dataTable thead .sorting_desc:after,table.dataTable thead .sorting_asc_disabled:before,table.dataTable thead .sorting_asc_disabled:after,table.dataTable thead .sorting_desc_disabled:before,table.dataTable thead .sorting_desc_disabled:after {
+    position: absolute;
+    bottom: 11px;
+    display: block;
+    opacity: .3;
+    font-size: 1.3em
+  }
+
+  table.dataTable thead .sorting:before,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting_desc:before,table.dataTable thead .sorting_asc_disabled:before,table.dataTable thead .sorting_desc_disabled:before {
+    right: 1em;
+    content: "↑"
+  }
+
+  table.dataTable thead .sorting:after,table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_desc:after,table.dataTable thead .sorting_asc_disabled:after,table.dataTable thead .sorting_desc_disabled:after {
+    right: .5em;
+    content: "↓"
+  }
+
+  table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting_desc:after {
+    opacity: 1
+  }
+
+  table.dataTable thead .sorting_asc_disabled:before,table.dataTable thead .sorting_desc_disabled:after {
+    opacity: 0
+  }
+
+</style>
